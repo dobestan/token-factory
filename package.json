@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/dobestan/token-factory#readme",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.4.2"
+    "@openzeppelin/contracts": "^4.4.2",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^16.0.0"
   }
 }

@@ -6,6 +6,11 @@ import "./Token.sol";
 
 
 contract Factory {
+    event TokenCreated(
+        address indexed owner,
+        address token
+    );
+
     struct TokenInformation {
         string name;
         string symbol;
@@ -33,6 +38,8 @@ contract Factory {
             deployedAt: address(token)
         });
         tokens.push(newTokenInformation);
+
+        emit TokenCreated(msg.sender, address(token));
 
         return address(token);
         // token.receipt.rawLogs[0].address is ERC-20 Contract Address.
