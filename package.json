@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dobestan/token-factory/issues"
   },
-  "homepage": "https://github.com/dobestan/token-factory#readme"
+  "homepage": "https://github.com/dobestan/token-factory#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2"
+  }
 }
