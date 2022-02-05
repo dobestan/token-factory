@@ -15,7 +15,8 @@ contract("Token", (accounts) => {
         token = await Token.new(
             name_,
             symbol_,
-            initial_
+            initial_,
+            accounts[0]
         );
     });
 

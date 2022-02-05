@@ -17,7 +17,7 @@ contract Factory {
         string memory symbol_,
         uint initial_
     ) public returns (address) {
-        Token token = new Token(name_, symbol_, initial_);
+        Token token = new Token(name_, symbol_, initial_, msg.sender);
         return address(token);
         // token.receipt.rawLogs[0].address is ERC-20 Contract Address.
     }

@@ -17,24 +17,30 @@ contract("Factory", (accounts) => {
     });
 
     describe("createToken function", () => {
-        it("should create a token contract.", async () => {
-            const name_ = "UltimatePowerfulBitcoin";
-            const symbol_ = "UPBIT";
-            const initial_ = 1000000;
+        let name_ = "UltimatePowerfulBitcoin";
+        let symbol_ = "UPBIT";
+        let initial_ = 1000000;
+        let deployedToken;
 
+        before("create a token contract", async () => {
             const deployed = await factory.createToken(
                 name_,
                 symbol_,
                 initial_
             );
             const deployedTokenAddress = deployed.receipt.rawLogs[0].address;
-            const deployedToken = await Token.at(deployedTokenAddress);
+            deployedToken = await Token.at(deployedTokenAddress);
+        });
 
-            assert.ok(deployedToken);
+        it("deployed token should have a name, symbol, and own address.", async () => {
+            assert.ok(deployedToken.address);
             assert.equal(await deployedToken.name(), name_);
             assert.equal(await deployedToken.symbol(), symbol_);
+        });
+
+        it("should mint initial tokens to original owner address instead of factory address.", async () => {
             assert.equal(
-                web3.utils.fromWei(await deployedToken.balanceOf(factory.address), "ether"),
+                web3.utils.fromWei(await deployedToken.balanceOf(accounts[0]), "ether"),
                 initial_
             )
         });
