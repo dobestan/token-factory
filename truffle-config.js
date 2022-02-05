@@ -22,7 +22,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config();
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const ENDPOINT = process.env.ENDPOINT;
+const INFURA_ENDPOINT_KEY = process.env.INFURA_ENDPOINT_KEY;
 
 module.exports = {
   /**
@@ -58,10 +58,20 @@ module.exports = {
     // },
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
+    mainnet: {
+        provider: () => new HDWalletProvider(
+            PRIVATE_KEY,
+            "https://mainnet.infura.io/v3/" + INFURA_ENDPOINT_KEY
+        ),
+        network_id: 1,       // Ropsten's id
+        gas: 5500000,        // Ropsten has a lower block limit than mainnet
+        confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+        timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+    },
     rinkeby: {
         provider: () => new HDWalletProvider(
             PRIVATE_KEY,
-            ENDPOINT
+            "https://rinkeby.infura.io/v3/" + INFURA_ENDPOINT_KEY
         ),
         network_id: 4,       // Ropsten's id
         gas: 5500000,        // Ropsten has a lower block limit than mainnet
