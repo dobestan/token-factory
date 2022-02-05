@@ -20,7 +20,8 @@ class App extends Component {
         this.state = {
             tokens: [],
             factory: DEPLOYED_FACTORY_CONTRACT_ADDRESS,
-            accounts: [],
+            account: [],
+            balance: 0,
         };
     }
 
@@ -28,6 +29,7 @@ class App extends Component {
         try {
             const web3 = await getWeb3();
             const accounts = await web3.eth.getAccounts();
+            const account = accounts[0];
 
             const factory = new web3.eth.Contract(
                 FactoryContract.abi,
@@ -35,12 +37,13 @@ class App extends Component {
             );
             const tokens = await factory.methods.getTokens().call();
             this.setState({
-                accounts,
+                account,
                 tokens,
             });
-
-            console.log(accounts);
-            console.log(tokens);
+            const balance = await web3.eth.getBalance(account);
+            this.setState({
+                balance: web3.utils.fromWei(balance, "ether"),
+            });
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +55,7 @@ class App extends Component {
                 <h1>Token Factory</h1>
                 <p>{this.state.factory}</p>
 
-                <AccountDetail account={this.state.accounts[0]} />
+                <AccountDetail account={this.state.account} balance={this.state.balance} />
                 <TokenList tokens={this.state.tokens} />
             </div>
         );

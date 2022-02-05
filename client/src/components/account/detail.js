@@ -11,7 +11,7 @@ class AccountDetail extends Component {
         return (
             <div>
                 <h1>Account</h1>
-                <p>connected to <a href={this.getEtherscanURL(this.props.account)}>{this.props.account}</a></p>
+                <p>connected to <a href={this.getEtherscanURL(this.props.account)}>{this.props.account}({this.props.balance} ETH)</a></p>
             </div>
         )
     }
