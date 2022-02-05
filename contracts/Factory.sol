@@ -37,4 +37,8 @@ contract Factory {
         return address(token);
         // token.receipt.rawLogs[0].address is ERC-20 Contract Address.
     }
+
+    function getTokens() public view returns (TokenInformation[] memory) {
+        return tokens;
+    }
 }

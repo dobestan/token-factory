@@ -16,7 +16,7 @@ contract("Factory", (accounts) => {
         );
     });
 
-    describe("createToken function", () => {
+    contract("createToken function", () => {
         let name_ = "UltimatePowerfulBitcoin";
         let symbol_ = "UPBIT";
         let initial_ = 1000000;
@@ -51,6 +51,26 @@ contract("Factory", (accounts) => {
             assert.equal(tokenInformation.symbol, await deployedToken.symbol());
             assert.equal(tokenInformation.owner, accounts[0]);
             assert.equal(tokenInformation.deployedAt, deployedToken.address);
+        });
+    });
+
+     contract("getTokens function", () => {
+        it("should return all deployed tokens", async () => {
+            let firstDeployed = await factory.createToken("First Token", "T1", 1000);
+            let secondDeployed = await factory.createToken("Second Token", "T2", 1000);
+            let tokens = await factory.getTokens();
+
+            assert.equal(tokens.length, 2);
+            assert.equal(
+                tokens[0].deployedAt,
+                firstDeployed.receipt.rawLogs[0].address
+            );
+
+            let secondDeployedToken = await Token.at(secondDeployed.receipt.rawLogs[0].address);
+            assert.equal(
+                tokens[1].name,
+                await secondDeployedToken.name()
+            );
         });
     });
 });
