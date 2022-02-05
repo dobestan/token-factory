@@ -1,20 +1,35 @@
 const Token = artifacts.require("Token");
 
 
-// Using describe() instead of contract().
-// Do not need "Clean-room environment" at this moment.
-// https://trufflesuite.com/docs/truffle/testing/testing-your-contracts#clean-room-environment
-describe("Token", () => {
-    it("should have a name and symbol.", async () => {
-        const name_ = "UltimatePowerfulBitcoin";
-        const symbol_ = "UPBIT";
+contract("Token", (accounts) => {
+    let name_;
+    let symbol_;
+    let initial_;
+    let token;
 
-        const token = await Token.new(
+    before("create a token contract", async () => {
+        name_ = "UltimatePowerfulBitcoin";
+        symbol_ = "UPBIT";
+        initial_ = 1000000;
+
+        token = await Token.new(
             name_,
             symbol_,
+            initial_
         );
+    });
+
+    it("should have a name, symbol and own address.", async () => {
         assert.ok(token.address);
         assert.equal(name_, await token.name());
         assert.equal(symbol_, await token.symbol());
+    });
+
+    it("should mint initial amount of ERC-20 tokens to contract caller.", async () => {
+        let balance = await token.balanceOf(accounts[0]);
+        assert.equal(
+            web3.utils.fromWei(balance, "ether"),
+            initial_
+        );
     });
 });
