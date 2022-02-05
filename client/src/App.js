@@ -4,6 +4,8 @@ import getWeb3 from "./getWeb3";
 
 import FactoryContract from "./contracts/Factory.json";
 
+import TokenList from "./components/token/list";
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -44,9 +46,7 @@ class App extends Component {
             <div>
                 <h1>Token Factory</h1>
                 <p>{this.state.factory}</p>
-                <ul>
-                    {this.state.tokens.map(token => <li key={token.deployedAt}>{token.name}</li>)}
-                </ul>
+                <TokenList tokens={this.state.tokens} />
             </div>
         );
     }
