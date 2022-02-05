@@ -1,0 +1,24 @@
+{
+  "name": "token-factory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobestan/token-factory.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dobestan/token-factory/issues"
+  },
+  "homepage": "https://github.com/dobestan/token-factory#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^16.0.0"
+  }
+}
