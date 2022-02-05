@@ -4,6 +4,7 @@ import getWeb3 from "./getWeb3";
 
 import FactoryContract from "./contracts/Factory.json";
 
+import AccountDetail from "./components/account/detail";
 import TokenList from "./components/token/list";
 
 import logo from './logo.svg';
@@ -19,6 +20,7 @@ class App extends Component {
         this.state = {
             tokens: [],
             factory: DEPLOYED_FACTORY_CONTRACT_ADDRESS,
+            accounts: [],
         };
     }
 
@@ -27,14 +29,17 @@ class App extends Component {
             const web3 = await getWeb3();
             const accounts = await web3.eth.getAccounts();
 
-            const networkId = await web3.eth.net.getId();
-            const deployedNetwork = FactoryContract.networks[networkId];
             const factory = new web3.eth.Contract(
                 FactoryContract.abi,
                 DEPLOYED_FACTORY_CONTRACT_ADDRESS
             );
             const tokens = await factory.methods.getTokens().call();
-            this.setState({tokens});
+            this.setState({
+                accounts,
+                tokens,
+            });
+
+            console.log(accounts);
             console.log(tokens);
         } catch (error) {
             console.log(error);
@@ -46,6 +51,8 @@ class App extends Component {
             <div>
                 <h1>Token Factory</h1>
                 <p>{this.state.factory}</p>
+
+                <AccountDetail account={this.state.accounts[0]} />
                 <TokenList tokens={this.state.tokens} />
             </div>
         );
