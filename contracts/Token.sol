@@ -9,10 +9,11 @@ contract Token is ERC20 {
     constructor(
         string memory name_,
         string memory symbol_,
-        uint initial_
+        uint initial_,
+        address owner
     ) ERC20(name_, symbol_) {
         _mint(
-            msg.sender,
+            owner,
             initial_ * (10 ** decimals())
         );
     }
