@@ -44,5 +44,13 @@ contract("Factory", (accounts) => {
                 initial_
             )
         });
+
+        it("should store deployed token contract to tokens.", async () => {
+            let tokenInformation = await factory.tokens(0);
+            assert.equal(tokenInformation.name, await deployedToken.name());
+            assert.equal(tokenInformation.symbol, await deployedToken.symbol());
+            assert.equal(tokenInformation.owner, accounts[0]);
+            assert.equal(tokenInformation.deployedAt, deployedToken.address);
+        });
     });
 });
