@@ -11,7 +11,9 @@ import logo from './logo.svg';
 import './App.css';
 
 
-const DEPLOYED_FACTORY_CONTRACT_ADDRESS = "0x75ea6bca6d9b6e26368ff6a28cf0a74b6c338e7d";
+const DEPLOYED_FACTORY_CONTRACT_ADDRESS_MAINNET = "0x75ea6bca6d9b6e26368ff6a28cf0a74b6c338e7d";
+const DEPLOYED_FACTORY_CONTRACT_ADDRESS_RINKEBY = "0xd787d5db2b26b111b9998aed91aabf86f8af86f9";
+let DEPLOYED_FACTORY_CONTRACT_ADDRESS;
 
 
 let factory;
@@ -38,6 +40,13 @@ class App extends Component {
             const web3 = await getWeb3();
             const accounts = await web3.eth.getAccounts();
             const account = accounts[0];
+
+            const networkId = await web3.eth.net.getId();
+            if (networkId == 1) {
+                DEPLOYED_FACTORY_CONTRACT_ADDRESS = DEPLOYED_FACTORY_CONTRACT_ADDRESS_MAINNET;
+            } else if (networkId == 4) {
+                DEPLOYED_FACTORY_CONTRACT_ADDRESS = DEPLOYED_FACTORY_CONTRACT_ADDRESS_RINKEBY;
+            }
 
             factory = new web3.eth.Contract(
                 FactoryContract.abi,
