@@ -105,4 +105,3 @@ dist
 
 # Truffle Artifacts
 build/
-client/src/contracts/
