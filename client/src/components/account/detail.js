@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 
+import getEtherscanURL from '../../helpers/etherscan';
+
 
 class AccountDetail extends Component {
-    getEtherscanURL = (address) => {
-        // #TODO: duplicated. should refactor to helper function
-        return "https://etherscan.io/address/" + address;
-    }
-
     render() {
         return (
             <div>
                 <h1>Account</h1>
-                <p>connected to <a href={this.getEtherscanURL(this.props.account)}>{this.props.account}({this.props.balance} ETH)</a></p>
+                <p>connected to <a href={getEtherscanURL(this.props.account, this.props.networkId)}>{this.props.account}({this.props.balance} ETH)</a></p>
             </div>
         )
     }

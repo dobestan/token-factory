@@ -32,6 +32,9 @@ class App extends Component {
             name: "",
             symbol: "",
             initial: 0,
+
+            web3: null,
+            networkId: null,
         };
     }
 
@@ -54,6 +57,8 @@ class App extends Component {
             );
             const tokens = await factory.methods.getTokens().call();
             this.setState({
+                web3,
+                networkId,
                 account,
                 tokens,
             });
@@ -84,7 +89,7 @@ class App extends Component {
                 <h1>Token Factory</h1>
                 <p>{this.state.factory}</p>
 
-                <AccountDetail account={this.state.account} balance={this.state.balance} />
+                <AccountDetail account={this.state.account} networkId={this.state.networkId} balance={this.state.balance} />
                 <h1>Create Token Form</h1>
                 <form onSubmit={this.createToken}>
                     <input name="name" type="text" placeholder="Token Name" required />
@@ -92,7 +97,7 @@ class App extends Component {
                     <input name="initial" type="number" placeholder="Initial Tokens" required />
                     <input type="submit" />
                 </form>
-                <TokenList tokens={this.state.tokens} />
+                <TokenList tokens={this.state.tokens} networkId={this.state.networkId} />
             </div>
         );
     }
