@@ -85,19 +85,51 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Token Factory</h1>
-                <p>{this.state.factory}</p>
+            <div className="section">
+                <div className="container">
+                    <h1 className="header center">ERC-20 Token Factory</h1>
+                    <blockquote>
+                        Ethereum Mainnet gas fee is <a href="https://etherscan.io/tx/0x7e2544d6e462b1da65b9c1ff203365b214562f99ca5798815c8b8efb76bba86a" target="_blank">too expensive.</a><br/>
+                        I highly recommend to use Rinkeby Testnet for test purposes.
+                    </blockquote>
+                </div>
 
-                <AccountDetail account={this.state.account} networkId={this.state.networkId} balance={this.state.balance} />
-                <h1>Create Token Form</h1>
-                <form onSubmit={this.createToken}>
-                    <input name="name" type="text" placeholder="Token Name" required />
-                    <input name="symbol" type="text" placeholder="Token Symbol" required />
-                    <input name="initial" type="number" placeholder="Initial Tokens" required />
-                    <input type="submit" />
-                </form>
-                <TokenList tokens={this.state.tokens} networkId={this.state.networkId} />
+                <AccountDetail
+                    account={this.state.account}
+                    networkId={this.state.networkId}
+                    balance={this.state.balance}
+                />
+
+                <div className="section">
+                    <div className="container">
+                        <h2>Create Token Form</h2>
+                        <form onSubmit={this.createToken}>
+                            <div className="input-field">
+                                <input name="name" type="text" placeholder="Token Name" required />
+                                <label for="name">Token Name</label>
+                            </div>
+                            <div className="input-field">
+                                <input name="symbol" type="text" placeholder="Token Symbol" required />
+                                <label for="symbol">Token Name</label>
+                            </div>
+                            <div className="input-field">
+                                <input name="initial" type="number" placeholder="Initial Tokens" required />
+                                <label for="initial">Initial Token Amounts</label>
+                            </div>
+                            <div className="input-field">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">
+                                    Create Token
+                                </button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <TokenList
+                    tokens={this.state.tokens}
+                    networkId={this.state.networkId}
+                />
             </div>
         );
     }

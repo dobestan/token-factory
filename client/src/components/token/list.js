@@ -5,13 +5,26 @@ import TokenDetail from './detail';
 
 class TokenList extends Component {
     render() {
-        console.log(this.props);
         return (
-            <div>
-                <h1>Tokens({this.props.tokens.length})</h1>
-                {this.props.tokens.map((token) =>
-                    <TokenDetail key={token.deployedAt} token={token} networkId={this.props.networkId} />
-                )}
+            <div className="section">
+                <div className="container">
+                    <h2 className="header">Deployed Tokens({this.props.tokens.length})</h2>
+                    <table className="centered highlight">
+                        <thead>
+                            <tr>
+                                <th>Token Name</th>
+                                <th>Symbol</th>
+                                <th>Contract Address</th>
+                                <th>Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.tokens.map((token) =>
+                                <TokenDetail key={token.deployedAt} token={token} networkId={this.props.networkId} />
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
