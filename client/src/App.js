@@ -5,6 +5,7 @@ import getWeb3 from "./getWeb3";
 import FactoryContract from "./contracts/Factory.json";
 
 import AccountDetail from "./components/account/detail";
+import TokenCreate from "./components/token/create";
 import TokenList from "./components/token/list";
 
 import logo from './logo.svg';
@@ -71,33 +72,32 @@ class App extends Component {
         }
     }
 
-    createToken = (event) => {
-        event.preventDefault();
-
-        const name = event.target.name.value;
-        const symbol = event.target.symbol.value;
-        const initial = event.target.initial.value;
-
-        factory.methods.createToken(name, symbol, initial).send({from: this.state.account});
-        // #TODO: this method is not tested due to high tx fee on mainnet.
-        // should change to testnet for development.
-    }
-
     render() {
         return (
-            <div>
-                <h1>Token Factory</h1>
-                <p>{this.state.factory}</p>
+            <div className="section">
+                <div className="container">
+                    <h1 className="header center">ERC-20 Token Factory</h1>
+                    <blockquote>
+                        Ethereum Mainnet gas fee is <a href="https://etherscan.io/tx/0x7e2544d6e462b1da65b9c1ff203365b214562f99ca5798815c8b8efb76bba86a" target="_blank">too expensive.</a><br/>
+                        I highly recommend to use Rinkeby Testnet for test purposes.
+                    </blockquote>
+                </div>
 
-                <AccountDetail account={this.state.account} networkId={this.state.networkId} balance={this.state.balance} />
-                <h1>Create Token Form</h1>
-                <form onSubmit={this.createToken}>
-                    <input name="name" type="text" placeholder="Token Name" required />
-                    <input name="symbol" type="text" placeholder="Token Symbol" required />
-                    <input name="initial" type="number" placeholder="Initial Tokens" required />
-                    <input type="submit" />
-                </form>
-                <TokenList tokens={this.state.tokens} networkId={this.state.networkId} />
+                <AccountDetail
+                    account={this.state.account}
+                    networkId={this.state.networkId}
+                    balance={this.state.balance}
+                />
+
+                <TokenCreate
+                    account={this.state.account}
+                    factory={factory}
+                />
+
+                <TokenList
+                    tokens={this.state.tokens}
+                    networkId={this.state.networkId}
+                />
             </div>
         );
     }

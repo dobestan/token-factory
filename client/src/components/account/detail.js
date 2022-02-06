@@ -6,9 +6,14 @@ import getEtherscanURL from '../../helpers/etherscan';
 class AccountDetail extends Component {
     render() {
         return (
-            <div>
-                <h1>Account</h1>
-                <p>connected to <a href={getEtherscanURL(this.props.account, this.props.networkId)}>{this.props.account}({this.props.balance} ETH)</a></p>
+            <div className="section">
+                <div className="container">
+                    <h2>Connected Wallet</h2>
+                    <ul>
+                        <li>{(this.props.account && this.props.balance) ? "✅" : null} Account: <a href={getEtherscanURL(this.props.account, this.props.networkId)} target="_blank">{this.props.account}</a></li>
+                        <li>{(this.props.account && this.props.balance) ? "✅" : null} Balance: {this.props.balance} ETH</li>
+                    </ul>
+                </div>
             </div>
         )
     }
